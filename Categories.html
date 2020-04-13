@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Catégories</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    .div_button
+    {
+      height: 350px;
+      border: thick double green;
+      background-color: white;
+    }
+    .div_button:hover
+    {
+      opacity: 0.5;
+    }
+    #Ferraille_ou_Tresor
+    {
+        color: white;
+        background-color: gold;
+    }
+    #Bon_pour_le_musee
+    {
+        color: white;
+        background-color: brown;        
+    }
+    #Accessoire_vip
+    {
+        color: white;
+        background-color:grey; 
+
+    }
+  </style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ECE Ebay</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Mettre en vente<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Bon Plan</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Mon Panier</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Connexion</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Mon Compte
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Mon Compte</a>
+            <a class="dropdown-item" href="#">Récemment regardé</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Mes Commandes</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+  <div id="categories" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 div_button" id="Ferraille_ou_Tresor" align="center" onclick="alert('lien');"><h1>Ferraille ou Trésor</h1></div>
+      <div class="col-sm-6 div_button" id="Bon_pour_le_musee"  align="center" onclick="alert('lien');"><h1>Bon pour le musée</h1></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 div_button" id="Accessoire_vip"align="center" onclick="alert('lien');"><h1>Accessoire VIP</h1></div>
+    </div>
+  </div>
+</body>
+</html>
