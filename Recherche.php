@@ -63,7 +63,7 @@ $categorie=null;
 $type_achat=null;
 $categorie=$_GET['categorie'];
 $type_achat=$_GET['type_achat'];
-$database="test2";
+$database="ebay_ece";
 $db_handle = mysqli_connect('localhost','root','');
 $db_found = mysqli_select_db($db_handle,$database);
 if($db_found)

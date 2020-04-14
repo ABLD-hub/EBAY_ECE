@@ -14,32 +14,6 @@
       padding: 5px;
     }
   </style>
-  <script type="text/javascript">
-      function verification(object)
-      {
-          if(document.getElementById("enchere").checked && document.getElementById("meilleure_offre").checked)
-          {
-            if(object.id=="enchere")
-            {
-                document.getElementById("meilleure_offre").checked=false;
-            }
-            if(object.id=="meilleure_offre")
-            {
-                document.getElementById("enchere").checked=false;
-            }
-            alert("Votre objet ne peut être à la fois mis en vente par enchère et par meilleure offre !!!");
-          }
-          if(!document.getElementById("enchere").checked)
-          {
-            $('#date_fin').css('display', 'none');
-          }
-          else
-          {
-            $('#date_fin').css('display', '');
-          }
-
-      }
-  </script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -81,11 +55,11 @@
     </form>
   </div>
 </nav>
-<p style="font-size: 40px" align="center">Mise en vente d'un objet</p>
-<form>
+<p style="font-size: 40px" align="center">Mise en vente d'un Item</p>
 	<table style="padding: 60px;" align="center" >
+
 		<tr>
-			<td>Nom de l'objet :</td>
+			<td>Nom de l'Item :</td>
 			<td><input type="text" class="form-control" id="nom" name="nom"></td>
 		</tr>
     <tr>
@@ -93,7 +67,7 @@
       <td><textarea class="form-control" id="description" name="description"></textarea></td>
     </tr>
     <tr>
-      <td>Une ou plusieurs photos de l'objet :</td>
+      <td>Une ou plusieures photos de l'Item :</td>
       <td><input type="file"  id="photo" name="photo"></td>
     </tr>
     <tr>
@@ -102,35 +76,19 @@
     </tr>
     <tr>
       <td>Catégorie :</td>
-      <td><input type="radio" name="categorie" value="Ferraille ou Tresor">  Ferraille ou Trésor<br>
-          <input type="radio" name="categorie" value="Bon pour le Musee">  Bon pour le Musée<br>
-          <input type="radio" name="categorie" value="Accessoire VIP">  Accessoire VIP
+      <td><input type="radio"  id="prix" name="categorie" value="Ferraille ou Tresor">  Feraille ou Trésor<br>
+          <input type="radio"  id="prix" name="categorie" value="Bon pour le Musee">  Bon pour le Musée<br>
+          <input type="radio"  id="prix" name="categorie" value="Accessoire VIP">  Accessoire VIP
           </td>
     </tr>
      <tr>
       <td>Prix :</td>
-      <td><input type="number" class="form-control" name="prix" placeholder="€"></td>
-    </tr>
-    <tr>
-      <td>Type de vente :</td>
-      <td>
-          <input id="enchere" type="checkbox" name="type_vente" onclick="verification(this)">  Enchères<br>
-          <input id="meilleure_offre" type="checkbox" name="type_vente" onclick="verification(this)">  Meilleure offre<br>
-          <input id="achat_immediat" type="checkbox" name="type_vente2">  Achat immédiat<br>
-
-      </td>
-    </tr>
-    <tr id="date_fin" style="display: none;">
-      <td>Date de fin de l'enchère :</td>
-      <td>
-          <input type="date" name="type_vente" class="form-control">
-      </td>
+      <td><input type="number" class="form-control" id="prix" name="prix" placeholder="€"></td>
     </tr>
 		<tr>
 			<td colspan="2" align="center"><input type="button" class="btn btn-primary" name="submit" value="Mettre en Vente"></td>
 		</tr>
 	</table>
-</form>
 </center>
 </body>
 </html>

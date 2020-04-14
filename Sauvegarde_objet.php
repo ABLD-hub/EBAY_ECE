@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ajout Item</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
- 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <title>Ajout Item</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <style type="text/css">
   td
     {
@@ -93,7 +93,7 @@
   </script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="accueil.html">ECE Ebay</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -132,92 +132,52 @@
       </form>
     </div>
   </nav>
-  <p style="font-size: 40px" align="center">Mise en vente d'un objet</p>
+<?php
+  $nom=$_GET['nom'];
+  $description=utf8_decode($_GET['description']);
+  $prix=$_GET['prix'];
+  $categorie=$_GET['categorie'];
+  $enchere=$_GET['enchere'];
+  $achat_immediat=$_GET['achat_immediat'];
+  $meilleure_offre=$_GET['meilleure_offre'];
+  $output="";
 
-  <form form action="Formulaire_Item.php" method="post" id="formulaire_item">
-   <table style="padding: 60px;" align="center" >
-
-
-    <tr>
-     <td>Nom de l'objet :</td>
-     <td><input type="text" class="form-control" id="nom" name="nom"></td>
-   </tr>
-
-   <tr>
-    <td>Description (qualités/défauts) :</td>
-    <td><textarea class="form-control" id="description" name="description"></textarea></td>
-  </tr>
-
-  <tr>
-    <td>Une ou plusieurs photos de l'objet :</td>
-    <td><input type="file"  id="photo" name="photo"></td>
-  </tr>
-
-  <tr>
-    <td>Vidéo :</td>
-    <td><input type="file" id="video" name="video"></td>
-  </tr>
-
-  <tr>
-    <td>Catégorie :</td>
-    <td><!--<input type="radio" name="categorie" value="Ferraille ou Tresor">  Ferraille ou Trésor<br>
-      <input type="radio"  name="categorie" value="Bon pour le Musee">  Bon pour le Musée<br>
-      <input type="radio"  name="categorie" value="Accessoire VIP">  Accessoire VIP-->
-      <?php
-      $database="ebay_ece";
-      $db_handle = mysqli_connect('localhost','root','');
-      $db_found = mysqli_select_db($db_handle,$database);
-      $increment=0;
-      if($db_found)
-      { 
-        $sql = "SELECT * from categorie";
-        $result = mysqli_query($db_handle, $sql);
-        while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
-        {
-          
-          echo "<input type='radio' name='categorie' value='".$data['ID']."' id='categorie_".$increment++."'>  ".utf8_encode($data['nom'])."<br>";
-        }
-        $sql = "SELECT COUNT(*) from categorie";
-        $result = mysqli_query($db_handle, $sql);
-        $row = $result->fetch_row();
-        echo"<script>set_num_categorie_max(".$row[0].")</script>";
-
-      }
-      else
-      {
-        echo "database not found";
-      }
-      mysqli_close($db_handle);
-      ?>
-    </td>
-  </tr>
-
-  <tr>
-    <td>Prix :</td>
-    <td><input type="number" id="prix" class="form-control" name="prix" placeholder="€"></td>
-  </tr>
-  <tr>
-    <td>Type de vente :</td>
-    <td>
-      <input id="enchere" type="checkbox" name="enchere" onclick="verification_type_vente(this)">  Enchères<br>
-      <input id="meilleure_offre" type="checkbox" name="meilleure_offre" onclick="verification_type_vente(this)">  Meilleure offre<br>
-      <input id="achat_immediat" type="checkbox" name="achat_immediat">  Achat immédiat<br>
-    </td>
-  </tr>
-
-  <tr id="date_fin" style="display: none;">
-    <td>Date de fin de l'enchère :</td>
-    <td>
-      <input type="date" name="type_vente" class="form-control">
-    </td>
-  </tr>
-
-  <tr>
-   <td colspan="2" align="center"><input type="button" class="btn btn-primary" name="submit" value="Mettre en Vente" onclick="verification_formulaire()"></td>
- </tr>
-
-</table>
-</form>
-</center>
+  $database="ebay_ece";
+  $db_handle = mysqli_connect('localhost','root','');
+  $db_found = mysqli_select_db($db_handle,$database);
+  if($db_found)
+  { 
+    $sql = "INSERT INTO item(Nom,Categorie,Description,Prix,vente_par_enchere,vente_immediat,vente_par_meilleure_offre) VALUES ('$nom','$categorie','$description','$prix',$enchere,$achat_immediat,$meilleure_offre);";
+     $result = mysqli_query($db_handle, $sql);
+     $output.= "<h1>Mise en vente de l'objet réussi</h1>";
+     $output.=  "<div class='col-sm-6 item' style='border:solid 1px black; border-radius:20px; height:150px; background-color:pink;'>";
+     $output.=  "Nom: " .$nom. "<br>";
+     $output.=  "Description: " .utf8_encode($description). "<br>";
+     $output.=  "Prix: " .$prix. "euros<br>";
+     $output.=  "Catégorie: " .$categorie. "<br>";
+     $output.=  "Type de vente:<ul>";
+     if($achat_immediat=='true')
+     {
+        $output.="<li> Achat immédiat. </li>";
+     }
+     if($enchere=='true')
+     {
+        $output.="<li> Enchère. </li>";
+     }
+     if($meilleure_offre=='true')
+     {
+        $output.="<li> Meilleure offre. </li>"; 
+     }
+     $output.= "</ul><br>"; 
+     $output.=  "</div>";
+     echo $output;
+  }
+  else
+  {
+    echo "database not found";
+  }
+mysqli_close($db_handle);
+?>
+<input type='button' onclick="window.open('accueil.html','_self');" value='Retour au menu'>
 </body>
 </html>
