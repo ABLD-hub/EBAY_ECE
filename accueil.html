@@ -9,14 +9,65 @@
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-
+  function Recherche(categorie,type_achat)
+  {
+    window.open("Recherche.php?categorie="+categorie+"&type_achat="+type_achat+"","_self");
+  }
 </script>
+<style type="text/css">
+  .button
+    {
+      width: 100%;
+      height: 110px;
+      border: thick double white;
+      border-radius: 40px;
+      background-color: white;
+      font-size: 50px;
+      padding : 10px;
+    }
+    .button:hover
+    {
+      opacity: 0.5;
+    }
 
+    .area
+    {
+      opacity: 0.8;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      box-shadow:  0px 5px 5px grey;
+      background-color: beige; 
+      border-radius: 35px; 
+      border:green solid 1px;
+      padding:30px;
+    }
+    #Ferraille_ou_Tresor
+    {
+        color: white;
+        background-color: gold;
+    }
+    #Bon_pour_le_musee
+    {
+        color: white;
+        background-color: brown;        
+    }
+    #Accessoire_vip
+    {
+        color: white;
+        background-color:grey; 
+
+    }
+    #main
+    {
+      background-image: url(https://cdn.futura-sciences.com/buildsv6/images/wide1920/3/7/c/37c286b435_115315_arbre-plus-grand-sequoia.jpg);
+      background-size:100%;
+    }
+</style>
 </head>
 <body>
 <div name="navbar">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  	<a class="navbar-brand" href="#">ECE Ebay</a>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 0px 5px 5px grey; ">
+  	<a class="navbar-brand" href="accueil.html">ECE Ebay</a>
   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"            aria-expanded="false" aria-label="Toggle navigation">
   	   <span class="navbar-toggler-icon"></span>
   	</button>
@@ -50,21 +101,33 @@
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form
+      </form>
     </div>
   </nav>
 </div>
-<div name ="Main">
-  <div name="part1">
-    <div name="Ferraille ou Trésor" class="float-left">
-        Feraille
-    </div>
-    <div name="Bon pour le Musée" class="float-right">
-        Musée
-    </div>
+<div class="container-fluid" id="main">
+  
+  <div class="row">
+  <div id="categories" class="col-sm-6 area" >
+        <h1 align="center">Catégories</h1>
+        <input class="button" id="Ferraille_ou_Tresor" type="submit" name="Ferraille_ou_Tresor" value="Ferraille ou Tresor" onclick="Recherche('FERRAILLE_OU_TRESOR',null)">
+        <input class="button" id="Bon_pour_le_musee"  type="submit" name="Bon_pour_le_musee" value="Bon pour le Musée" onclick="Recherche('BON_POUR_LE_MUSEE',null)">
+        <input class="button" id="Accessoire_vip" type="submit" name="Accessoire_vip" value="Accessoire VIP" onclick="Recherche('ACCESSOIRE_VIP',null)">
   </div>
-  <div name="Accessoire VIP">
-      Accessoire
-  </div> 
+  <div id="type_achat" class="col-sm-6 area">
+        <h1 align="center">Type d'achats</h1>
+        <input class="button" id="Encheres" type="submit" name="Encheres" value="Enchères" onclick="Recherche(null,'vente_par_enchere')">
+        <input class="button" id="Achat_immediat"  type="submit" name="Achat_immediat" value="Achetez le maintenant !! " onclick="Recherche(null,'vente_immediat')">
+        <input class="button" id="Meilleure_offre" type="submit" name="Meilleure_offre" value="Meilleure Offre " onclick="Recherche(null,'vente_par_meilleure_offre')">
+  </div>
+  </div>
+  <div class="row">
+      <div id="vendre" class="col-sm-12 div_button" style="background-color: beige;  border: black; border-radius: 35px; border:green solid 1px; height: 100px;margin:10px;" align="center"><h1>Vendre un Item</h1></div>
+  </div>
+
+<footer style="background-color: grey; both:clear; height: 100px;">
+  
+</footer>
 </div>
 </body>
+</html>
