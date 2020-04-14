@@ -7,13 +7,35 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <style type="text/css">
-  	.item:hover
-  	{
-  		opacity: 0.8;
-  	}
-  </style>  
+    .div_button
+    {
+      height: 350px;
+      border: thick double green;
+      background-color: white;
+    }
+    .div_button:hover
+    {
+      opacity: 0.5;
+    }
+    #Ferraille_ou_Tresor
+    {
+        color: white;
+        background-color: gold;
+    }
+    #Bon_pour_le_musee
+    {
+        color: white;
+        background-color: brown;        
+    }
+    #Accessoire_vip
+    {
+        color: white;
+        background-color:grey; 
+
+    }
+  </style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -54,36 +76,14 @@
       </form>
     </div>
   </nav>
- </body>
- </html>
-
-
-<?php
-$categorie=null;
-$type_achat=null;
-$categorie=$_GET['categorie'];
-$type_achat=$_GET['type_achat'];
-$database="ebay_ece";
-$db_handle = mysqli_connect('localhost','root','');
-$db_found = mysqli_select_db($db_handle,$database);
-if($db_found)
-{	
-  echo "<div class='container-fluid' style='padding:10px;'>";
-	  $sql = "SELECT * from item where Categorie='".$categorie."' OR ".$type_achat."='1';";
-	$result = mysqli_query($db_handle, $sql);
-	while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
-	{
-		echo "<div class='row' style='padding:2px;'><div class='col-sm-6 item' style='border:solid 1px black; border-radius:20px; height:150px; background-color:pink;'>";
-		echo "Nom: " .$data['Nom']. "<br>";
-		echo "Prix: " .$data['Prix']. "euros<br>";
-		echo "Description: " .utf8_encode($data['Description']). "euros<br>";
-		echo "</div></div>";
-	}
-	echo "</div>";
-}
-else
-{
-	echo "database not found";
-}
-mysqli_close($db_handle);
-?>
+  <div id="categories" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 div_button" id="Ferraille_ou_Tresor" align="center" onclick="alert('lien');"><h1>Ferraille ou Trésor</h1></div>
+      <div class="col-sm-6 div_button" id="Bon_pour_le_musee"  align="center" onclick="alert('lien');"><h1>Bon pour le musée</h1></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 div_button" id="Accessoire_vip"align="center" onclick="alert('lien');"><h1>Accessoire VIP</h1></div>
+    </div>
+  </div>
+</body>
+</html>
