@@ -1,5 +1,6 @@
 <?php session_start();?>
 
+
 <?php
 
 $mail = isset($_POST["email"])? $_POST["email"] : "";
@@ -16,7 +17,7 @@ if ($_POST["submit"])
 		$sql = "SELECT type_utilisateur FROM utilisateur WHERE email LIKE '$mail' AND mot_de_passe LIKE '$mdp'";
 			$result = mysqli_query($db_handle, $sql);
 			if (mysqli_num_rows($result) == 0) {
-				header('Location: Formulaire_Connection.php');
+				echo 'mot de passe ou utilisateur incorrect';
 					exit();
 			}
 

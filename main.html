@@ -12,24 +12,25 @@
 </script>
 <body>
 <div class="container-fluid" id="main">
-  <form action="Recherche.php" method="post">
-  <div class="row">
-  <div id="categories" class="col-sm-6 area" >
-        <h1 align="center">Catégories</h1>
-        <div class="div_button" id="Ferraille_ou_Tresor" name="Ferraille_ou_Tresor" align="center" onclick="Recherche.php"><h1>Ferraille ou Trésor</h1></div>
-        <div class="div_button" id="Bon_pour_le_musee"  align="center" onclick="alert('lien');"><h1>Bon pour le musée</h1></div>
-        <div class="div_button" id="Accessoire_vip"align="center" onclick="alert('lien');"><h1>Accessoire VIP</h1></div>
-</div>
-  <div id="achats" class="col-sm-6 area">
-        <h1 align="center">Achats</h1>
-        <div class="div_button" id="Ferraille_ou_Tresor" align="center" onclick="alert('lien');"><h1>Enchères</h1></div>
-        <div class="div_button" id="Bon_pour_le_musee"  align="center" onclick="alert('lien');"><h1>Achetez le maintenant !! </h1></div>
-        <div class="div_button" id="Accessoire_vip"align="center" onclick="alert('lien');"><h1>Meilleure Offre</h1></div>
+  
+	  <div class="row">
+		  <div id="categories" class="col-sm-6 area" >
+				<h1 align="center">Catégories</h1>
+				<input class="button" id="Ferraille_ou_Tresor" type="submit" name="Ferraille_ou_Tresor" value="Ferraille ou Tresor" onclick="Recherche('FERRAILLE_OU_TRESOR',null)">
+				<input class="button" id="Bon_pour_le_musee"  type="submit" name="Bon_pour_le_musee" value="Bon pour le Musée" onclick="Recherche('BON_POUR_LE_MUSEE',null)">
+				<input class="button" id="Accessoire_vip" type="submit" name="Accessoire_vip" value="Accessoire VIP" onclick="Recherche('ACCESSOIRE_VIP',null)">
+		  </div>
+		  <div id="type_achat" class="col-sm-6 area">
+				<h1 align="center">Type d'achats</h1>
+				<input class="button" id="Encheres" type="submit" name="Encheres" value="Enchères" onclick="Recherche(null,'vente_par_enchere')">
+				<input class="button" id="Achat_immediat"  type="submit" name="Achat_immediat" value="Achetez le maintenant !! " onclick="Recherche(null,'vente_immediat')">
+				<input class="button" id="Meilleure_offre" type="submit" name="Meilleure_offre" value="Meilleure Offre " onclick="Recherche(null,'vente_par_meilleure_offre')">
+		  </div>
+	  </div>
+	  <div class="row">
+			  <div id="vendre" class="col-sm-12 div_button" style="background-color: beige;  border: black; border-radius: 35px; border:green solid 1px; height: 100px;margin:10px;" align="center" onclick="window.open('Formulaire_Item.php')"><h1>Vendre un Item</h1>
+			  </div>
+	  </div>
   </div>
-</div>
-          <div class="row">
-      <div id="vendre" class="col-sm-12 div_button" style="background-color: beige;  border: black; border-radius: 35px; border:green solid 1px; height: 100px;margin:10px;" align="center"><h1>Vendre un Item</h1></div>
-</div>
-</form>
 </div>
 </body>

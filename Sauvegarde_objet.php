@@ -142,7 +142,7 @@
   $meilleure_offre=$_GET['meilleure_offre'];
   $output="";
 
-  $database="ebay_ece";
+  $database="ebayece";
   $db_handle = mysqli_connect('localhost','root','');
   $db_found = mysqli_select_db($db_handle,$database);
   if($db_found)
@@ -171,8 +171,7 @@
      $output.= "</ul><br>"; 
      $output.=  "</div>";
      echo $output;
-  }
-  else
+    else
   {
     echo "database not found";
   }

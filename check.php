@@ -1,26 +1,39 @@
-
-
 <?php
-// On démarre la session AVANT toute chose
 function check()
 {
 	echo $_SESSION['email'];
 }
 
 
-
-
-function href($href="Formulaire_Connection.php")
+function check_vendeur()
 {
-	
-	if(check()=="")
+	///Si il y a un utilisateur
+	if(isset($_SESSION['type_utilisateur']))
 	{
-		$href="Formulaire_Connection.php";
-		return $href;
+		if($_SESSION['type_utilisateur']!="VENDEUR" || $_SESSION['type_utilisateur']!="Admin")
+	{
+		echo 'Formulaire_Item.php';
 	}
 	else
 	{
-		return $href;
+		"Veuillez vous connecter en tant que vendeur";
+	}
+	}
+	else
+	{
+		echo "Formulaire_Connection.php";
+	}
+}
+
+function phpcheck()
+{
+	if(isset($_SESSION['type_utilisateur']))
+	{
+		return "True";
+	}
+	else
+	{
+		return "false";
 	}
 }
 
