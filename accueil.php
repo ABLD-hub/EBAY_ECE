@@ -1,6 +1,5 @@
-<?php session_start();
-?>
-
+<?php session_start();?>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Ebay ECE </title>
@@ -18,6 +17,7 @@
 <body>
    <?php if(isset($_SESSION['email'])) {
     echo "la session vaut : ".$_SESSION['email'];
+    echo "l'utilisateur vaut : ".$_SESSION['type_utilisateur'];
 	}else
 {
 echo 'pas de variable de session';
@@ -27,5 +27,5 @@ echo 'pas de variable de session';
   <?php include 'main.html'; ?>
 
 </body>
-<footer> 
-</footer>
+<?php include 'footer.html'; ?>
+</html>
