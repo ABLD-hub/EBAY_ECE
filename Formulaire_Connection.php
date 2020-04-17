@@ -1,4 +1,5 @@
-<?php session_start(); // On démarre la session AVANT toute chose
+<?php 
+session_start(); 
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
  	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="check.js"></script>
@@ -20,7 +21,7 @@
 	<table align="center">
 
 		<tr>
-			<td>Email :</td>
+			<td>Email ou Pseudo:</td>
 			<td><input type="Email" class="form-control" id="email" name="email"></td>
 		</tr>
 		<tr>
