@@ -17,17 +17,8 @@ session_start();
 
 </head>
 <body>
-   <?php if(isset($_SESSION['email'])) {
-    echo "la session vaut : ".$_SESSION['email'];
-    echo "l'utilisateur vaut : ".$_SESSION['type_utilisateur'];
-	}else
-{
-echo 'pas de variable de session';
-} ?>
-	
-  <?php include 'navbar.html';?>
-  <?php include 'main.html'; ?>
-
+<?php include 'navbar.html';?>
+<form class="form-group" action="liste.php" method="post">
+	<input type="submit" class="btn btn-primary" name="utilisateur" value="utilisateur">
+	<input type="submit" class="btn btn-primary" name="item" value="item">
 </body>
-<footer> 
-</footer>

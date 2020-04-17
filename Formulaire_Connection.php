@@ -1,4 +1,5 @@
-<?php session_start(); // On démarre la session AVANT toute chose
+<?php 
+session_start(); 
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +21,7 @@
 	<table align="center">
 
 		<tr>
-			<td>Email :</td>
+			<td>Email ou Pseudo:</td>
 			<td><input type="Email" class="form-control" id="email" name="email"></td>
 		</tr>
 		<tr>

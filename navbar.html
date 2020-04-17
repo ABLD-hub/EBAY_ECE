@@ -35,7 +35,7 @@
           <a class="nav-link" href="#">Bon Plan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Mon Panier</a>
+          <a class="nav-link" href="panier.php">Mon Panier</a>
         </li>
         <li class="nav-item" id="Connexion">
           <a class="nav-link" href="Formulaire_Connection.php">
@@ -47,7 +47,7 @@
               Mon Compte
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Mon Compte</a>
+              <a class="dropdown-item" href="mon_compte.php">Mon Compte</a>
               <a class="dropdown-item" href="#">Récemment regardé</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Mes Commandes</a>
@@ -55,13 +55,18 @@
           </li>
         </div>
           <li class="nav-item">
-        <a class="nav-link" id="Creer" href="#">
+        <a class="nav-link" id="Creer" href="formulaire_nouvel_utilisateur.php">
           Créer un compte
         </a>
       </li>
       <li class="nav-item" id="logout">
         <a type="button" class="btn btn-default btn-sm" href="logout.php">
           <span class="glyphicon glyphicon-log-out"></span> Log out
+        </a>
+      </li> 
+      <li class="nav-item" id="admin">
+        <a type="nav-link" class="btn btn-default btn-sm" href="admin.php">
+          <span class="glyphicon glyphicon-log-out"></span> admin
         </a>
       </li> 
       </ul>
@@ -82,7 +87,10 @@
   {
     echo"<script>cacher('Creer');
       cacher('Connexion');</script>";
+      if($_SESSION['type_utilisateur']!="admin")
+      {
+        echo"<script>cacher('admin');</script>";
+      }
   }
 ?>
-</script>
 </body>
