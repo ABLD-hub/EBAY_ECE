@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,15 +38,15 @@
     $db_found = mysqli_select_db($db_handle,$database);
     if($db_found)
     { 
-        $sql = "SELECT * from item where Categorie='".$categorie."' OR ".$type_achat."='1';";
+        $sql = "SELECT * from item where id_categorie='".$categorie."' OR ".$type_achat."='1';";
       $result = mysqli_query($db_handle, $sql);
       while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
       {
-        echo "<div class='row' onclick=lancement_page('".$categorie."','".$type_achat."','".$data['ID']."')>";
+        echo "<div class='row' onclick=lancement_page('".$categorie."','".$type_achat."','".$data['id_objet']."')>";
         echo "<div class='col-sm-6 item'>";
-        echo "<p><strong>Nom: </strong>" .$data['Nom']. "<br>";
-        echo "<strong>Prix: </strong>" .$data['Prix']. " euros<br>";
-        echo "<strong>Description: </strong><br>" .utf8_encode($data['Description']). "</p><br>";
+        echo "<p><strong>Nom: </strong>" .$data['nom_objet']. "<br>";
+        echo "<strong>Prix: </strong>" .$data['prix_initial_objet']. " euros<br>";
+        echo "<strong>Description: </strong><br>" .utf8_encode($data['description_objet']). "</p><br>";
         echo "</div>";
         echo "<div class='col-sm-6 item_image'>";
         echo "<img src='https://www.citationbonheur.fr/wp-content/uploads/2018/09/L_influence_du_paysage_sur_le_bonheur.jpg' height='100%'>";
