@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?php 
+  <title><?php 
     $categorie=$_GET['categorie'];
     $type_achat=$_GET['type_achat'];
     if($categorie!='null')
@@ -11,8 +11,8 @@
       echo $type_achat;
   ?>
   </title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
