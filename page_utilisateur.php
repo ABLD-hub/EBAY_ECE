@@ -25,7 +25,7 @@ if($db_found)
   $result = mysqli_query($db_handle, $sql);
   while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
   {
-    $_SESSION['id_utilisateur']=$data['id_utilisateur'];
+              $_SESSION['id_utilisateur']=$data['id_utilisateur'];
               $nom_utilisateur=$data['nom_utilisateur'];
               $prenom_utilisateur=$data['prenom_utilisateur'];
               $pseudo=$data['pseudo'];
