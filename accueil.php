@@ -1,6 +1,4 @@
-<?php 
-session_start();
-?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,17 +15,19 @@ session_start();
 
 </head>
 <body>
-   <?php if(isset($_SESSION['email'])) {
-    echo "la session vaut : ".$_SESSION['email'];
+   <?php if(isset($_SESSION['email']) || isset($_SESSION['type_utilisateur'])) 
+   {
+    echo "l'adresse mail vaut : ".$_SESSION['email'];
     echo "l'utilisateur vaut : ".$_SESSION['type_utilisateur'];
-	}else
+	}
+	else
 {
 echo 'pas de variable de session';
 } ?>
-	
+
   <?php include 'navbar.html';?>
   <?php include 'main.html'; ?>
 
 </body>
-<footer> 
-</footer>
+<?php include 'footer.html'; ?>
+</html>

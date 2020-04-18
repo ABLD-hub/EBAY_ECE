@@ -18,23 +18,43 @@
         alert("Les mots de passe ne sont pas identique !!")
         $('#motdepasse_verif').css('background-color','#FFC0C0');
         $('#motdepasse').css('background-color','#FFC0C0');
+        $('#Ajout').prop('disabled',true);
        }
        else
        {
         $('#motdepasse_verif').css('background-color','white');
         $('#motdepasse').css('background-color','white');
+        $('#Ajout').prop('disabled',false);
        }
+    }
+    function verification_type_utilisateur()
+    {
+      $('.acheteur').prop('display','none');
+      if(document.getElementById('utilisateur').value=="vendeur")
+      {
+          $('.acheteur_form').css('display','none');
+          $('.acheteur_input').prop('disabled',true);
+          $('.vendeur_form').css('display','');
+          $('.vendeur_input').prop('disabled',false);
+      }
+      else
+      {
+          $('.acheteur_form').css('display','');
+          $('.acheteur_input').prop('disabled',false);
+          $('.vendeur_form').css('display','none');
+          $('.vendeur_input').prop('disabled',true);
+      }
     }
   </script>
 </head>
-<body id="fond_ajout_utilisateur">
+<body>
 	
 <?php include 'navbar.html'; ?>
 <div  align="center">
   <div id="fond_formulaire" class="col-sm-4" align="center">
   <p style="font-size: 40px" align="center">Créer votre compte Ebay ECE</p>
 
-  <form action="formulaire_nouvel_utilisateur.php" method="post" id="formulaire_nouvel_utilisateur">
+  <form action="formulaire_nouvel_utilisateur.php" method="post" id="formulaire_nouvel_utilisateur" enctype="multipart/form-data">
    <table style="padding: 60px;" align="center" >
    <tr>
      <td>Nom :</td>
@@ -59,24 +79,120 @@
   <tr>
     <td>Type d'utilisateur :</td>
     <td>
-      <select id="utilisateur" name="utilisateur" required>
-        <option> Acheteur </option>
-        <option> Vendeur </option>
+      <select id="utilisateur" name="utilisateur" onchange="verification_type_utilisateur()" required>
+        <option> acheteur </option>
+        <option> vendeur </option>
       </select>
     </td>
   </tr>
+  <tr class="acheteur_form">
+    <td>Adresse ligne1 :</td>
+    <td><input type="text" class="form-control acheteur_input" name="adresse1" required></td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Adresse ligne2 :</td>
+    <td><input type="text" class="form-control acheteur_input" name="adresse2"></td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Ville :</td>
+    <td>
+      <input type="text" class="form-control acheteur_input" name="ville" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Code postal :</td>
+    <td>
+      <input type="text" class="form-control acheteur_input" name="codepostal" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Pays :</td>
+    <td>
+      <input type="text" class="form-control acheteur_input" name="pays" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Numéro de téléphone :</td>
+    <td>
+      <input type="text" class="form-control acheteur_input" name="no_tel" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Type de carte :</td>
+    <td>
+      <select name="type_carte" class="form-control acheteur_input"required>
+        <option> Visa </option>
+        <option> Mastercard </option>
+      </select>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Nom du propriétaire de la carte :</td>
+    <td>
+      <input type="text" class="form-control acheteur_input" name="proprietaire_carte" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Date d'expiration :</td>
+    <td>
+      <input type="month" class="form-control acheteur_input" name="date_expiration" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Code de carte :</td>
+    <td>
+      <input type="number" class="form-control acheteur_input" name="code_carte" required>
+    </td>
+  </tr>
+
+  <tr class="acheteur_form">
+    <td>Cryptogramme de sécurité de carte :</td>
+    <td>
+      <input type="password" class="form-control acheteur_input" name="code_secu_carte" required>
+    </td>
+  </tr>
+
+  <tr class="vendeur_form" style="display: none;">
+    <td>Photo de profil :</td>
+    <td>
+      <input type="file" class="vendeur_input" name="photo_de_profil">
+    </td>
+  </tr>
+
+  <tr class="vendeur_form" style="display: none;">
+    <td>Photo de fond :</td>
+    <td>
+      <input type="file" class="vendeur_input" name="photo_de_fond">
+    </td>
+  </tr>
+
   <tr>
     <td>Mot de passe :</td>
     <td><input type="password" id="motdepasse" class="form-control" name="motdepasse" required></td>
   </tr>
+
   <tr>
     <td>Vérification mot de passe :</td>
     <td><input type="password" id="motdepasse_verif" class="form-control" name="motdepasse_verif" required onblur="verification_password()"></td>
   </tr>
 
+  <tr class="acheteur_form">
+    <td colspan="2" align="">
+      <input type="checkbox" class="acheteur_input" name="condition_d'utilisation" required><strong>  Conditions d'utilisation: </strong>Vous acceptez la clause disant que si vous faites une offre sur un article, vous êtes sous contrat legal de l'achetez si le vendeur accepte l'offre.
+    </td>
+  </tr>
   <tr>
    <td colspan="2" align="center">
-    <input type="submit" class="btn btn-primary" name="Ajout" value="Créer">
+    <input type="submit" class="btn btn-primary" name="Ajout" id="Ajout" value="Créer">
   </td>
  </tr>
 <p>
@@ -90,51 +206,103 @@
   $utilisateur = isset($_POST["utilisateur"])? $_POST["utilisateur"]:"";
   $motdepasse = isset($_POST["motdepasse"])? $_POST["motdepasse"]:"";
 
-  $database="ebayece";
+  $adresse1 = isset($_POST["adresse1"])? $_POST["adresse1"]:"";
+  $adresse2 = isset($_POST["adresse2"])? $_POST["adresse2"]:"";
+  $ville = isset($_POST["ville"])? $_POST["ville"]:"";
+  $codepostal = isset($_POST["codepostal"])? $_POST["codepostal"]:"";
+  $pays = isset($_POST["pays"])? $_POST["pays"]:"";
+
+  $no_telephone = isset($_POST["no_tel"])? $_POST["no_tel"]:"";
+
+  $type_carte = isset($_POST["type_carte"])? $_POST["type_carte"]:"";
+  $propio_carte = isset($_POST["proprietaire_carte"])? $_POST["proprietaire_carte"]:"";
+  $date_expiration = isset($_POST["date_expiration"])? $_POST["date_expiration"]:"";
+  $code_carte = isset($_POST["code_carte"])? $_POST["code_carte"]:"";
+  $cryptogramme = isset($_POST["code_secu_carte"])? $_POST["code_secu_carte"]:"";
+
+  $database="ebay_ece";
   $db_handle = mysqli_connect('localhost','root','');
   $db_found = mysqli_select_db($db_handle,$database);
   if($db_found)
   {
+    if(isset($_POST["Ajout"]))
+      {
+        $erreur="";
+        echo "<script>$('form').css('display','none');</script>";
+        $sql = "SELECT DISTINCT * FROM utilisateur WHERE email LIKE '$email';";
+        $result = mysqli_query($db_handle, $sql);
+        if(mysqli_num_rows($result)!=0)
+        {
+          $erreur.="<div style='margin: 15px; background-color:brown; color:white; border-radius: 10px;'>Erreur: Un utilisateur avec la même adresse email est déjà existant!!<br></div>";
+        }
+        if($erreur=="")
+        {
+          if($utilisateur=="acheteur")
+          {
+          $sql = "INSERT INTO utilisateur(id_utilisateur,nom_utilisateur,prenom_utilisateur,pseudo,email,mot_de_passe,type_utilisateur,lien_photo_utilisateur,lien_photo_fond,adresse_ligne_1,adresse_ligne_2,adresse_ville,adresse_code_postal,adresse_pays,no_telephone,carte_type,carte_numero,carte_nom,carte_date_expiration,carte_code) VALUES (NULL,'$nom','$prenom','$pseudo','$email','$motdepasse','$utilisateur',NULL,NULL,'$adresse1','$adresse2','$ville','codepostal','$pays','$no_telephone','$type_carte','$code_carte','$propio_carte','$date_expiration','$cryptogramme');";
+          }
+          else
+          {
+            $nom_image = array(0 => "photo_de_profil",1 => "photo_de_fond");
+            //$image = array(0 => $photo_de_profil, 1 => $photo_de_fond);
+            for ($i=0; $i <2  ; $i++) { 
+            if(isset($_FILES[$nom_image[$i]]) && $_FILES[$nom_image[$i]]["error"] == 0){
+                $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
+                $filename = $_FILES[$nom_image[$i]]["name"];
+                $filetype = $_FILES[$nom_image[$i]]["type"];
+                $filesize = $_FILES[$nom_image[$i]]["size"];
+                    // Verify file extension
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    if(!array_key_exists($ext, $allowed)) die("Error: Please select a valid file format.");
+                    // Verify file size - 5MB maximum
+                    $maxsize = 5 * 1024 * 1024;
+                    if($filesize > $maxsize) die("Error: File size is larger than the allowed limit.");
+                    // Verify MYME type of the file
+                    if(in_array($filetype, $allowed)){
+                        // Check whether file exists before uploading it
+                        if(file_exists("upload/" . $filename)){
+                            echo $filename . " is already exists.";
+                        } else{
+                            move_uploaded_file($_FILES[$nom_image[$i]]["tmp_name"], "upload/" . $filename);
+                            echo "Your file was uploaded successfully.";
+                        } 
+                    }else{echo "Error: There was a problem uploading your file. Please try again."; }
+                }else{echo "Error: " . $_FILES[$nom_image[$i]]["error"];}
+             echo "<br><img src='upload/".$_FILES[$nom_image[$i]]['name']."'>";
+            }
 
-  if(isset($_POST["Ajout"]))
-    {
-      $erreur="";
-      echo "<script>$('form').css('display','none');</script>";
-      $sql = "SELECT DISTINCT * FROM utilisateur WHERE email LIKE '$email';";
-      $result = mysqli_query($db_handle, $sql);
-      if(mysqli_num_rows($result)!=0)
-      {
-        $erreur.="<div style='margin: 15px; background-color:brown; color:white; border-radius: 10px;'>Erreur: Un utilisateur avec la même adresse email est déjà existant!!<br></div>";
-      }
-      if($erreur=="")
-      {
-        $sql = "INSERT INTO utilisateur(email,nom,prenom,pseudo,mot_de_passe,type_utilisateur,numero_carte,type_carte,date_expiration) VALUES ('$email','$nom','$prenom','$pseudo','$motdepasse','$utilisateur',NULL,NULL,NULL);";
-        $result=mysqli_query($db_handle, $sql);
-        echo "<div style='margin: 15px; background-color:green; color:white; border-radius: 10px;'>Votre Compte à bien été créé.</div>";
-      }
-      else
-      {
-        echo $erreur;
-      }
-      echo "<form action='Accueil.php'><input type=submit class='btn btn-primary' value='Accueil'></form>";
-      $_SESSION['email']=$email;
-      $sql = "SELECT DISTINCT * FROM utilisateur WHERE email LIKE '$email';";
-      $result = mysqli_query($db_handle, $sql);
-      while($data = mysqli_fetch_assoc($result))
-      {
-        $_SESSION['nom']=$data['nom'];
-        $_SESSION['prenom']=$data['prenom'];
-        $_SESSION['pseudo']=$data['pseudo'];
-        $_SESSION['mot_de_passe']=$data['mot_de_passe'];
-        $_SESSION['type_utilisateur']=$data['type_utilisateur'];
-        $_SESSION['numero_carte']=$data['numero_carte'];
-        $_SESSION['mot_de_passe']=$data['mot_de_passe'];
-        $_SESSION['type_carte']=$data['type_carte'];
-        $_SESSION['date_expiration']=$data['date_expiration'];
-      }
-      session_write_close();
-      exit();
+            $sql = "INSERT INTO utilisateur(id_utilisateur,nom_utilisateur,prenom_utilisateur,pseudo,email,mot_de_passe,type_utilisateur,lien_photo_utilisateur,lien_photo_fond) VALUES (NULL,'$nom','$prenom','$pseudo','$email','$motdepasse','$utilisateur',NULL,NULL);";
+          }
+          $result=mysqli_query($db_handle, $sql);
+          echo "<div style='margin: 15px; background-color:green; color:white; border-radius: 10px;'>Votre Compte à bien été créé.</div>";
+        }
+        else
+        {
+          echo $erreur;
+        }
+        echo "<form action='Accueil.php'><input type=submit class='btn btn-primary' value='Accueil'></form>";
+        /*$_SESSION['email']=$email;
+        $sql = "SELECT DISTINCT * FROM utilisateur WHERE email LIKE '$email';";
+        $result = mysqli_query($db_handle, $sql);
+        while($data = mysqli_fetch_assoc($result))
+        {
+          $_SESSION['nom']=$data['nom'];
+          $_SESSION['prenom']=$data['prenom'];
+          $_SESSION['pseudo']=$data['pseudo'];
+          $_SESSION['mot_de_passe']=$data['mot_de_passe'];
+          $_SESSION['type_utilisateur']=$data['type_utilisateur'];
+          $_SESSION['numero_carte']=$data['numero_carte'];
+          $_SESSION['mot_de_passe']=$data['mot_de_passe'];
+          $_SESSION['type_carte']=$data['type_carte'];
+          $_SESSION['date_expiration']=$data['date_expiration'];
+        }
+        session_write_close();
+        exit();*/
     }
+  if(isset($_POST["Ajout"]))
+  {
+
+  }
 }
 else
 {
@@ -144,4 +312,5 @@ mysqli_close($db_handle);
 ?>
 </div></div>
 </body>
+<?php include 'footer.html'; ?>
 </html>

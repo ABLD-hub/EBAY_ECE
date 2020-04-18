@@ -3,7 +3,7 @@
 	session_start();
 	$bdd= "item";
 	$table="categorie";
-	$database="ebayece";
+	$database="ebay_ece";
 	$db_handle = mysqli_connect('localhost', 'root', '');
 	$db_found = mysqli_select_db($db_handle, $database);
 	if ($_POST["select"])

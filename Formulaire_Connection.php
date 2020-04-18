@@ -22,7 +22,7 @@ session_start();
 
 		<tr>
 			<td>Email ou Pseudo:</td>
-			<td><input type="Email" class="form-control" id="email" name="email"></td>
+			<td><input type="pseudo" class="form-control" id="pseudo" name="pseudo"></td>
 		</tr>
 		<tr>
 			<td>Mot de passe :</td>

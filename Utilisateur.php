@@ -1,11 +1,11 @@
-<?php 
-session_start();?>
+<?php session_start();
+?>
 <?php
 
-$mail = isset($_POST["email"])? $_POST["email"] : "";
+$mail = isset($_POST["pseudo"])? $_POST["pseudo"] : "";
 $mdp = isset($_POST["password"])? $_POST["password"] : "";
-
-$database = "ebayece";
+echo "/".$mail."/";
+$database = "ebay_ece";
 
 
 $db_handle = mysqli_connect('localhost', 'root', '');
@@ -15,20 +15,20 @@ if ($_POST["submit"])
 	if ($db_found) 
 	{
 		$sql = "SELECT * FROM utilisateur WHERE email LIKE '$mail' AND mot_de_passe LIKE '$mdp'";
+
 			$result = mysqli_query($db_handle, $sql);
 			if (mysqli_num_rows($result) == 0) 
 			{
-				$sql.= "SELECT * FROM utilisateur WHERE pseudo LIKE '$mail' AND mot_de_passe LIKE '$mdp'";
+				$sql= "SELECT * FROM utilisateur WHERE pseudo LIKE '$mail' AND mot_de_passe LIKE '$mdp'";
+				echo $sql;
 				$result = mysqli_query($db_handle, $sql);
 				if (mysqli_num_rows($result) == 0)
 				{
 					echo 'identifiant incorrect';
 					exit();
 				}
-
 				else
 				{
-					$_SESSION['email']=$mail;
 						while($data = mysqli_fetch_assoc($result))
 						{
 							$_SESSION['id_utilisateur']=$data['id_utilisateur'];

@@ -12,15 +12,39 @@
 </script>
 <body>
 <div class="container-fluid" id="main">
-  
 	  <div class="row">
-		  <div id="categories" class="col-sm-6 area" >
+		  <div id="categories" class="col-sm-12 area" >
 				<h1 align="center">Catégories</h1>
-				<input class="button" id="Ferraille_ou_Tresor" type="submit" name="Ferraille_ou_Tresor" value="Ferraille ou Tresor" onclick="Recherche('FERRAILLE_OU_TRESOR',null)">
-				<input class="button" id="Bon_pour_le_musee"  type="submit" name="Bon_pour_le_musee" value="Bon pour le Musée" onclick="Recherche('BON_POUR_LE_MUSEE',null)">
-				<input class="button" id="Accessoire_vip" type="submit" name="Accessoire_vip" value="Accessoire VIP" onclick="Recherche('ACCESSOIRE_VIP',null)">
+				<div class="row">
+				<?php
+			      $database="ebay_ece";
+			      $db_handle = mysqli_connect('localhost','root','');
+			      $db_found = mysqli_select_db($db_handle,$database);
+			      $increment=0;
+			      if($db_found)
+			      { 
+			        $sql = "SELECT * from categorie";
+			        $result = mysqli_query($db_handle, $sql);
+			        while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
+			        {
+			          
+			          echo "<input class='button col-sm-4' id='".$data['id_categorie']."' type='submit' name='".$data['id_categorie']."' value='".utf8_encode($data['nom'])."' onclick=Recherche('".$data['id_categorie']."',null)>";
+			        }
+			        $sql = "SELECT COUNT(*) from categorie";
+			        $result = mysqli_query($db_handle, $sql);
+			        $row = $result->fetch_row();
+			        echo"<script>set_num_categorie_max(".$row[0].")</script>";
+
+			      }
+			      else
+			      {
+			        echo "database not found";
+			      }
+			      mysqli_close($db_handle);
+      			?>	
+			</div>
 		  </div>
-		  <div id="type_achat" class="col-sm-6 area">
+		  <div id="type_achat" class="col-sm-12 area">
 				<h1 align="center">Type d'achats</h1>
 				<input class="button" id="Encheres" type="submit" name="Encheres" value="Enchères" onclick="Recherche(null,'vente_par_enchere')">
 				<input class="button" id="Achat_immediat"  type="submit" name="Achat_immediat" value="Achetez le maintenant !! " onclick="Recherche(null,'vente_immediat')">
