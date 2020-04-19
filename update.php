@@ -5,6 +5,11 @@ session_start();?>
 <?php
 //echo "test";
 $id_utilisateur=$_SESSION["id_utilisateur"];
+$id = isset($_POST["id_utilisateur"])? $_POST["id_utilisateur"] : "";
+if($id=="")
+{
+	$id=$_SESSION['id_utilisateur'];
+}
 $mail = isset($_POST["email"])? $_POST["email"] : "";
 if($mail=="")
 {
@@ -106,12 +111,12 @@ $database = "ebay_ece";
 
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-if ($db_found) {
-	if (isset($_POST["submit"]))
-	{
-	
-			$sql ="UPDATE utilisateur SET email='$mail', nom_utilisateur='$nom', prenom_utilisateur='$prenom', pseudo='$pseudo', mot_de_passe='$mdp', type_utilisateur='$statut', adresse_ligne_1='$adresse_ligne_1', adresse_ligne_2='$adresse_ligne_2', adresse_ville='$adresse_ville', adresse_pays='$adresse_pays', no_telephone=$no_telephone, carte_type='$type_carte', carte_numero='$carte_numero', carte_nom='$carte_nom', carte_date_expiration=$carte_date_expiration WHERE id_utilisateur='$id_utilisateur'";
-			$result = mysqli_query($db_handle, $sql);
+if ($db_found)
+{
+	if ($_POST["submit"])
+	 {
+						$sql ="UPDATE utilisateur SET email='$mail', nom_utilisateur='$nom', prenom_utilisateur='$prenom', pseudo='$pseudo', mot_de_passe='$mdp', type_utilisateur='$statut', adresse_ligne_1='$adresse_ligne_1', adresse_ligne_2='$adresse_ligne_2', adresse_ville='$adresse_ville', adresse_pays='$adresse_pays', no_telephone=$no_telephone, carte_type='$type_carte', carte_numero='$carte_numero', carte_nom='$carte_nom', carte_date_expiration=$carte_date_expiration WHERE id_utilisateur='$id_utilisateur'";
+							$result = mysqli_query($db_handle, $sql);
 							$_SESSION['nom_utilisateur']=$nom;
 							$_SESSION['prenom_utilisateur']=$prenom;
 							$_SESSION['pseudo']=$pseudo;
@@ -135,8 +140,17 @@ if ($db_found) {
 							session_write_close();
 							header('Location: accueil.php');
 							exit();
-		
 		}
+		else if($_POST["effacer"])
+		{
+			$sql= "DELETE FROM utilisateur WHERE id_utilisateur=$id;";
+			echo $sql;
+			$result = mysqli_query($db_handle, $sql);
+			session_write_close();
+			header('Location: admin.php');
+			exit();
+		}
+		
 	}
 	else {  echo "Database not found";}
 	mysqli_close($db_handle);
