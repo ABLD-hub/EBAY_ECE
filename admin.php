@@ -10,52 +10,27 @@ session_start();
  <link rel="stylesheet"
  href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="style.css">
+ <script type="text/javascript" src="check.js"></script>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="check.js">
-</script>
+
 
 </head>
 <body>
 <?php include 'navbar.html';?>
 <div class="container-fluid" id="utilisateur">
 		  <div id="type_achat" class="col-sm-12 area">
-				<h1 align="center">Type d'achats</h1>
-				<input class="button" id="admin" type="submit" name="admin" value="admin" onclick="RechercheUtilisateur('admin')">
+				<h1 align="center">Type Utilisateur</h1>
 				<input class="button" id="vendeur"  type="submit" name="vendeur" value="vendeur " onclick="RechercheUtilisateur('vendeur')">
 				<input class="button" id="acheteur" type="submit" name="acheteur" value="acheteur" onclick="RechercheUtilisateur('acheteur')">
 		  </div>
 		  <div class="container-fluid" id="item">
 	  <div class="row">
 		  <div id="categories" class="col-sm-12 area" >
-				<h1 align="center">Objets en Vente</h1>
+		  <h1 align="center">Actions sur Objet</h1>
 				<div class="row">
-				<?php
-			      $database="ebay_ece";
-			      $db_handle = mysqli_connect('localhost','root','');
-			      $db_found = mysqli_select_db($db_handle,$database);
-			      $increment=0;
-			      if($db_found)
-			      { 
-			        $sql = "SELECT * from item";
-			        $result = mysqli_query($db_handle, $sql);
-			        while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
-			        {
-			          
-			          echo "<input class='button col-sm-4' id='".$data['id_objet']."' type='submit' name='".$data['id_objet']."' value='".utf8_encode($data['nom_objet'])."' onclick=Recherche('".$data['id_objet']."',null)>";
-			        }
-			        $sql = "SELECT COUNT(*) from item";
-			        $result = mysqli_query($db_handle, $sql);
-			        $row = $result->fetch_row();
-			        echo"<script>set_num_categorie_max(".$row[0].")</script>";
-
-			      }
-			      else
-			      {
-			        echo "database not found";
-			      }
-			      mysqli_close($db_handle);
-      			?>	
+				<input class="button" id="FinEnchère"  type="submit" name="FinEnchère" value="Mettre Fin aux enchère " onclick="RechercheEnchere(1,'termine')">
+				<input class="button" id="ToutesEnchère" type="submit" name="ToutesEnchère" value="Toutes les Enchères" onclick="RechercheEnchere(1,'')">
 			</div>
 		  </div>
 </body>

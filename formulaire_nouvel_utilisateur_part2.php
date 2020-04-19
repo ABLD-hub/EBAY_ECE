@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Création d'un compte Utilisateur</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <title>Création d'un compte Utilisateur</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="style.css">
- 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="check.js"></script>
   <script type="text/javascript">
     function verification_password()
@@ -48,85 +48,9 @@
   </script>
 </head>
 <body>
-	
-<?php include 'navbar.html'; ?>
-<div  align="center">
-  <div id="fond_formulaire" class="col-sm-4" align="center">
-  <p style="font-size: 40px" align="center">Créer votre compte Ebay ECE</p>
-
-  <form action="formulaire_nouvel_utilisateur.php" method="post" id="formulaire_nouvel_utilisateur" enctype="multipart/form-data">
-   <table style="padding: 60px;" align="center" >
-   <tr>
-     <td>Nom :</td>
-     <td><input type="text" class="form-control" name="nom" required></td>
-   </tr>
-
-   <tr>
-    <td>Prenom :</td>
-    <td><input type="text" class="form-control" name="prenom" required></textarea></td>
-  </tr>
-
-  <tr>
-    <td>Pseudo :</td>
-    <td><input type="text" class="form-control" name="pseudo" ></td>
-  </tr>
-
-  <tr>
-    <td>Email :</td>
-    <td><input type="email" class="form-control" name="email" required></td>
-  </tr>
-
-  <tr>
-    <td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="submit"></td>
-  </tr>
-
-  </table>
-</form>
-<?php
-  $destinataire =isset($_POST["email"])? $_POST["email"]:"";
-  $nom =isset($_POST["nom"])? $_POST["nom"]:"";
-  $prenom =isset($_POST["prenom"])? $_POST["prenom"]:"";
-  $pseudo =isset($_POST["pseudo"])? $_POST["pseudo"]:"";
-  //$destinataire  = 'ece.ebay.2020@gmail.com';
-  if(isset($_POST["submit"]))
-      {
-  $expediteur = 'ece.ebay.2020@gmail.com';
-  $objet = 'ECE Ebay - Validation de votre adresse mail';
-
-     // création de l'en-tête Content-type doit être défini
-  $headers  = 'MIME-Version: 1.0' . "\r\n"; // Version MIME
-  $headers.= 'Content-type: text/html; charset="utf-8"'."\n"; // l'en-tete Content-type pour le format HTML  
-  $headers.= 'Content-transfer-encoding: 8bit'."\n"; // l'en-tete Content-type pour le format HTML   
-  $headers.= 'From: "ECE EBAY "<ece.ebay.2020@gmail.com>'."\n"; //Expéditeur
   
-    $message = '
-    <html>
-    <body>
-      <div align="left">
-        Veuillez cliquez sur l\'url ci-dessous pour valider votre adresse email :<br>
-        <a href="localhost/ebay_ece/formulaire_nouvel_utilisateur_part2.php?nom='.$nom.'&prenom='.$prenom.'&pseudo='.$pseudo.'&email='.$destinataire.'">
-      </div>
-    </body>
-    </html>
-    ';
-
-  if (mail($destinataire, $objet, $message, $headers)) // Envoi du message
-  {
-    echo 'Un message a été envoyé sur votre adresse mail. Veuillez suivre les instructions.';
-    echo 'Si vous ne recevez rien, vérifier votre adresse email et votre dossier courrier indésirable.';
-  }
-  else // Non envoyé
-  {
-    echo "Une erreur s'est produite.";
-  } 
-}
-
-?>
-</div></div>
-</body>
-<?php include 'footer.html'; ?>
-</html>
- <!-- <tr>
+<?php include 'navbar.html'; ?>
+<tr>
     <td>Type d'utilisateur :</td>
     <td>
       <select id="utilisateur" name="utilisateur" onchange="verification_type_utilisateur()" required>
@@ -378,4 +302,4 @@ mysqli_close($db_handle);
 </div></div>
 </body>
 <?php include 'footer.html'; ?>
-</html>-->
+</html>

@@ -57,18 +57,24 @@
           if($type_achat=="vente_par_meilleure_offre")
             echo "Vente par meilleure offre!!";
         }
-        if($nom_recherche=="null" || $nom_recherche=="")
-            $nom_recherche="%";
-        else
+        if($nom_recherche!='null')
         {
-          echo "Resultat de la recherche : ".$nom_recherche;
+          if($nom_recherche=="")
+          {
+              $nom_recherche="%";
+              echo "Resultat de la recherche : Tout";
+          }
+          else
+          {
+            echo "Resultat de la recherche : ".$nom_recherche;
+          }
         }
         echo"</div>";
         $sql="";
-        if($nom_recherche=="%")
-          $sql = "SELECT * from item where (id_categorie='".$categorie."' OR ".$type_achat."='1');";
+        if($type_achat!="null" || $categorie!="null")
+          $sql = "SELECT * from objet where (id_categorie='".$categorie."' OR ".$type_achat."='1') AND statut_vente='en_vente';";
         else
-          $sql = "SELECT * from item where nom_objet like '%$nom_recherche%';";
+          $sql = "SELECT * from objet where nom_objet like '%$nom_recherche%' AND statut_vente='en_vente';";
         $result = mysqli_query($db_handle, $sql);
         if(mysqli_num_rows($result)==0)
         {
@@ -76,7 +82,7 @@
         }
         while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
         {
-          echo "<div class='row' onclick=lancement_page('".$categorie."','".$type_achat."','".$data['id_objet']."')>";
+          echo "<div class='row' onclick=lancement_page('".$data['id_objet']."')>";
           echo "<div class='col-sm-6 item'>";
           echo "<p><strong>Nom: </strong>" .utf8_encode($data['nom_objet']). "<br>";
           echo "<strong>Prix: </strong>" .$data['prix_initial_objet']. " euros<br>";
@@ -84,11 +90,11 @@
           echo "</div>";
           echo "<div class='col-sm-6 item_image'>";
           $id_objet=$data['id_objet'];
-          $sql_image = "SELECT * FROM item INNER JOIN photo_objet ON item.id_objet=photo_objet.id_objet WHERE item.id_objet='$id_objet';";
+          $sql_image = "SELECT * FROM objet WHERE id_objet='$id_objet';";
           $result_image = mysqli_query($db_handle, $sql_image);
           while($data_image = mysqli_fetch_assoc($result_image))
           {
-           echo "<img class='img'src='upload/".$data_image['id_photo'].".jpg' height='100%'>";break;
+           echo "<img class='img'src='upload/".$data_image['photo_1']."' height='100%'>";break;
           }
           echo "</div>";
           echo "</div>";

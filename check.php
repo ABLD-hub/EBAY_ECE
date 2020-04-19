@@ -8,19 +8,15 @@ function check()
 function check_vendeur()
 {
 	///Si il y a un utilisateur
-	if(isset($_SESSION['type_utilisateur']))
-	{
-		if($_SESSION['type_utilisateur']=="vendeur" || $_SESSION['type_utilisateur']=="admin")
-		{
-			echo 'Formulaire_Item.php';
+	if(isset($_SESSION['type_utilisateur'])) {
+		if($_SESSION['type_utilisateur']=="vendeur" || $_SESSION['type_utilisateur']=="admin") {
+			echo 'formulaire_objet.php';
 		}
-		else
-		{
+		else {
 			echo "Formulaire_Demande.php";
 		}
 	}
-	else
-	{
+	else {
 		echo "Formulaire_Connection.php";
 	}
 }

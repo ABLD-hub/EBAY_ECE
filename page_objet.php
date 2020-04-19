@@ -29,7 +29,7 @@
       if($db_found)
       { 
         echo "<div class='container-fluid' style='padding:10px;'>";
-        $sql = "SELECT * from item where id_objet='".$id_objet."';";
+        $sql = "SELECT * from objet where id_objet='".$id_objet."';";
         $result = mysqli_query($db_handle, $sql);
         while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
         {
@@ -48,7 +48,7 @@
             if($data['vente_par_enchere']=='1')
             {
              
-              $sql = "SELECT * from panier where id_objet='".$id_objet."' AND id_utilisateur='".$_SESSION['id_utilisateur']."';";
+              $sql = "SELECT * from panier where id_objet='".$id_objet."' AND id_acheteur='".isset($_SESSION['id_utilisateur'])."';";
               $result = mysqli_query($db_handle, $sql);
               if(mysqli_num_rows($result)!=0)
               { 
@@ -78,7 +78,7 @@
                           <td><input class='form-control' type='number' name='negociation' value='".$data['prix_initial_objet']."'></td>
                           <td><input class='btn btn-primary' style='font-size: 25px' type='button' Name='Negocier' value='Négocier'><td>
                         </tr>";
-              $sql = "SELECT * from panier where id_objet='".$id_objet."' AND id_utilisateur='".$_SESSION['id_utilisateur']."';";
+              $sql = "SELECT * from panier where id_objet='".$id_objet."' AND id_acheteur='".$_SESSION['id_utilisateur']."';";
               $result = mysqli_query($db_handle, $sql);
               if(mysqli_num_rows($result)!=0)
               {
@@ -93,14 +93,18 @@
           }
 
           $output_media.="<div class='col-sm-6'>";
-          $sql = "SELECT * FROM item INNER JOIN photo_objet ON item.id_objet=photo_objet.id_objet WHERE item.id_objet='$id_objet';";
+          $sql = "SELECT * FROM objet WHERE id_objet='$id_objet';";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))
           {
-          $output_media.= "<img style='width:100%;' src='upload/".$data['id_photo'].".jpg'>";
+           $output_media.= "<img style='width:100%;' src='upload/".$data['photo_1']."'>";
+           if($data['photo_2']!=null)
+            $output_media.= "<img style='width:100%;' src='upload/".$data['photo_2']."'>";
+           if($data['photo_3']!=null)
+            $output_media.= "<img style='width:100%;' src='upload/".$data['photo_3']."'>";
           }
           $output_media.= "<div class='embed-responsive embed-responsive-4by3 video'>
-          <iframe class='embed-responsive-item'src='https://www.youtube.com/embed/C0DPdy98e4c'></iframe>";
+          <video class='embed-responsive-item'src='".$data['lien_video']."'></iframe>";
           $output_media.=" </div>
           </div>
           </div>
@@ -114,13 +118,16 @@
 
           if(isset($_POST["Achat_immediat"]))
           {
-            $sql = "SELECT * FROM panier WHERE id_utilisateur=$id_utilisateur AND id_objet=$id_objet";
+            $sql = "SELECT * FROM panier WHERE id_acheteur=$id_utilisateur AND id_objet=$id_objet";
             $result = mysqli_query($db_handle, $sql);
+            echo $sql;
             if(mysqli_num_rows($result)==0)
             {
-              $sql = "INSERT INTO panier(id_utilisateur,id_objet,proposition_montant_achat,prix_vente) VALUES ($id_utilisateur,$id_objet,NULL,$prix);";
+              $sql = "INSERT INTO panier(id_panier,id_acheteur,id_objet,proposition_montant_achat,prix_vente) VALUES (NULL,$id_utilisateur,$id_objet,NULL,$prix);";
               ///récupere le resultat de la requête
               $result = mysqli_query($db_handle, $sql);
+              header('Location: panier.php');
+                exit();
             }
             else
             $output_information.= "Cet objet est déjà présent dans votre panier";
@@ -128,24 +135,23 @@
           if(isset($_POST["Encherir"]))
           {
             $mon_enchere_max=isset($_POST["enchere_value_max"])? $_POST["enchere_value_max"]:"";
-            $sql = "SELECT * FROM panier WHERE id_utilisateur=$id_utilisateur AND id_objet=$id_objet";
+            $sql = "SELECT * FROM panier WHERE id_acheteur=$id_utilisateur AND id_objet=$id_objet";
             $result = mysqli_query($db_handle, $sql);
             if(mysqli_num_rows($result)==0)
             {
-              $sql = "INSERT INTO panier(id_utilisateur,id_objet,proposition_montant_achat,prix_vente) VALUES ($id_utilisateur,$id_objet,$mon_enchere_max,NULL);";
+              $sql = "INSERT INTO panier(id_panier,id_acheteur,id_objet,proposition_montant_achat,prix_vente) VALUES (NULL,$id_utilisateur,$id_objet,$mon_enchere_max,NULL);";
               ///récupere le resultat de la requête
               $result = mysqli_query($db_handle, $sql);
             }
             else
             {
-              echo $ancienne_proposition_achat." < ".$mon_enchere_max;
               if($ancienne_proposition_achat>$mon_enchere_max)
               {
                 $output_information.="Vous ne pouvez pas diminiuer votre enchère initiale !!<br>";
               }
               else
               {
-                $sql_update_enchere="UPDATE panier SET proposition_montant_achat='$mon_enchere_max' WHERE id_utilisateur='$id_utilisateur' AND id_objet='$id_objet';";
+                $sql_update_enchere="UPDATE panier SET proposition_montant_achat='$mon_enchere_max' WHERE id_acheteur='$id_utilisateur' AND id_objet='$id_objet';";
                 $result = mysqli_query($db_handle, $sql_update_enchere);
                 $output_information.="Votre Enchère a été mis à jour !!<br>";
               }
@@ -155,11 +161,11 @@
           if(isset($_POST["Encherir"]))
           {
             $mon_enchere_max=isset($_POST["enchere_value_max"])? $_POST["enchere_value_max"]:"";
-            $sql = "SELECT * FROM panier WHERE id_utilisateur=$id_utilisateur AND id_objet=$id_objet AND prix_vente=$prix;";
+            $sql = "SELECT * FROM panier WHERE id_acheteur=$id_utilisateur AND id_objet=$id_objet AND prix_vente=$prix;";
             $result = mysqli_query($db_handle, $sql);
             if(mysqli_num_rows($result)==0)
             {
-              $sql = "INSERT INTO panier(id_utilisateur,id_objet,proposition_montant_achat,prix_vente) VALUES ($id_utilisateur,$id_objet,NULL,$prix);";
+              $sql = "INSERT INTO panier(id_acheteur,id_objet,proposition_montant_achat,prix_vente) VALUES ($id_utilisateur,$id_objet,NULL,$prix);";
               ///récupere le resultat de la requête
               $result = mysqli_query($db_handle, $sql);
             }
@@ -178,14 +184,16 @@
         echo "</table></div>";  
         echo $output_media;
         echo "</div></form>";
-         if($_SESSION['type_utilisateur']=="admin")
+        if($_SESSION['type_utilisateur']=="admin")
         {
 
           echo "<div id='admin'>
           <input type='id_objet' name='id_objet' class='form-control' value='".$data['id_objet']."'  style='display:none;' readonly>
           <input type='submit' class='btn btn-danger' name='effacer' value='Supprimer'></div>";
         }
+
       mysqli_close($db_handle);
     ?>
   </body>
+  <?php include 'footer.html';?>
 </html>

@@ -19,7 +19,7 @@ function RechercheUtilisateur(type_utilisateur)
   {
     window.open("Recherche_utilisateur.php?type_utilisateur="+type_utilisateur+"","_self");
   }
-function lancement_page(categorie,type_achat,ID)
+function lancement_page(ID)
   {
     window.open("page_objet.php?id_objet="+ID,"_self");
   } 
