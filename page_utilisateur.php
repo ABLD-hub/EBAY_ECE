@@ -91,7 +91,6 @@ if($db_found)
     Admin
   </label>
 </div>
-  
   <div class="form-group">
     <label>Adresse 1</label>
     <input type="adresse_ligne_1" name="adresse_ligne_1"class="form-control" id="ZoneAdresse" placeholder="<?php echo $adresse_ligne_1;?>">
