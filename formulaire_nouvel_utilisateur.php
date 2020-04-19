@@ -128,7 +128,9 @@
     <td>
       <select name="type_carte" class="form-control acheteur_input"required>
         <option> Visa </option>
-        <option> Mastercard </option>
+        <option> MasterCard </option>
+        <option> American Express </option>
+        <option> PayPal </option>
       </select>
     </td>
   </tr>
@@ -150,14 +152,14 @@
   <tr class="acheteur_form">
     <td>Code de carte :</td>
     <td>
-      <input type="number" class="form-control acheteur_input" name="code_carte" required>
+      <input type="number" class="form-control acheteur_input" name="code_carte" maxlength="16" required>
     </td>
   </tr>
 
   <tr class="acheteur_form">
     <td>Cryptogramme de sécurité de carte :</td>
     <td>
-      <input type="password" class="form-control acheteur_input" name="code_secu_carte" required>
+      <input type="password" class="form-control acheteur_input" name="code_secu_carte" maxlength="4" required>
     </td>
   </tr>
 
@@ -243,9 +245,13 @@
           }
           else
           {
+            $photo_de_profil="";
+            $photo_de_fond="";
             $nom_image = array(0 => "photo_de_profil",1 => "photo_de_fond");
-            //$image = array(0 => $photo_de_profil, 1 => $photo_de_fond);
-            for ($i=0; $i <2  ; $i++) { 
+            $file_image = array(0 => "" , 1=> "");
+
+            for ($i=0; $i <2  ; $i++) 
+            { 
             if(isset($_FILES[$nom_image[$i]]) && $_FILES[$nom_image[$i]]["error"] == 0){
                 $allowed = array("jpg" => "image/jpg", "jpeg" => "image/jpeg", "gif" => "image/gif", "png" => "image/png");
                 $filename = $_FILES[$nom_image[$i]]["name"];
@@ -260,20 +266,18 @@
                     // Verify MYME type of the file
                     if(in_array($filetype, $allowed)){
                         // Check whether file exists before uploading it
-                        if(file_exists("upload/" . $filename)){
-                            echo $filename . " is already exists.";
-                        } else{
-                            move_uploaded_file($_FILES[$nom_image[$i]]["tmp_name"], "upload/" . $filename);
+                            $file_image[$i]=$nom."_".$prenom."_".$pseudo."_".$i."_".rand(0,40).".jpg";
+                            move_uploaded_file($_FILES[$nom_image[$i]]["tmp_name"], "upload_profil/" . $file_image[$i]);
                             echo "Your file was uploaded successfully.";
-                        } 
                     }else{echo "Error: There was a problem uploading your file. Please try again."; }
                 }else{echo "Error: " . $_FILES[$nom_image[$i]]["error"];}
-             echo "<br><img src='upload/".$_FILES[$nom_image[$i]]['name']."'>";
+             echo "<br><img src='upload_profil/".$_FILES[$nom_image[$i]]['name']."'>";
             }
-
-            $sql = "INSERT INTO utilisateur(id_utilisateur,nom_utilisateur,prenom_utilisateur,pseudo,email,mot_de_passe,type_utilisateur,lien_photo_utilisateur,lien_photo_fond) VALUES (NULL,'$nom','$prenom','$pseudo','$email','$motdepasse','$utilisateur',NULL,NULL);";
-          }
+            echo $_FILES['photo_de_profil']['name'];
+            $sql = "INSERT INTO utilisateur(id_utilisateur,nom_utilisateur,prenom_utilisateur,pseudo,email,mot_de_passe,type_utilisateur,lien_photo_utilisateur,lien_photo_fond) VALUES (NULL,'$nom','$prenom','$pseudo','$email','$motdepasse','$utilisateur','$file_image[0]','$file_image[1]');";
+          echo $sql;
           $result=mysqli_query($db_handle, $sql);
+        }
           echo "<div style='margin: 15px; background-color:green; color:white; border-radius: 10px;'>Votre Compte à bien été créé.</div>";
         }
         else
@@ -281,23 +285,34 @@
           echo $erreur;
         }
         echo "<form action='Accueil.php'><input type=submit class='btn btn-primary' value='Accueil'></form>";
-        /*$_SESSION['email']=$email;
+        $_SESSION['email']=$email;
         $sql = "SELECT DISTINCT * FROM utilisateur WHERE email LIKE '$email';";
         $result = mysqli_query($db_handle, $sql);
         while($data = mysqli_fetch_assoc($result))
         {
-          $_SESSION['nom']=$data['nom'];
-          $_SESSION['prenom']=$data['prenom'];
+          $_SESSION['id_utilisateur']=$data['id_utilisateur'];
+          $_SESSION['nom_utilisateur']=$data['nom_utilisateur'];
+          $_SESSION['prenom_utilisateur']=$data['prenom_utilisateur'];
           $_SESSION['pseudo']=$data['pseudo'];
+          $_SESSION['email']=$data['email'];
           $_SESSION['mot_de_passe']=$data['mot_de_passe'];
           $_SESSION['type_utilisateur']=$data['type_utilisateur'];
-          $_SESSION['numero_carte']=$data['numero_carte'];
-          $_SESSION['mot_de_passe']=$data['mot_de_passe'];
-          $_SESSION['type_carte']=$data['type_carte'];
-          $_SESSION['date_expiration']=$data['date_expiration'];
+          $_SESSION['lien_photo_utilisateur']=$data['lien_photo_utilisateur'];
+          $_SESSION['lien_photo_fond']=$data['lien_photo_fond'];
+          $_SESSION['adresse_ligne_1']=$data['adresse_ligne_1'];
+          $_SESSION['adresse_ligne_2']=$data['adresse_ligne_2'];
+          $_SESSION['adresse_ville']=$data['adresse_ville'];
+          $_SESSION['adresse_code_postal']=$data['adresse_code_postal'];
+          $_SESSION['adresse_pays']=$data['adresse_pays'];
+          $_SESSION['no_telephone']=$data['no_telephone'];
+          $_SESSION['carte_type']=$data['carte_type'];
+          $_SESSION['carte_numero']=$data['carte_numero'];
+          $_SESSION['carte_nom']=$data['carte_nom'];
+          $_SESSION['carte_date_expiration']=$data['carte_date_expiration'];
+          $_SESSION['carte_code']=$data['carte_code'];
         }
         session_write_close();
-        exit();*/
+        exit();
     }
   if(isset($_POST["Ajout"]))
   {

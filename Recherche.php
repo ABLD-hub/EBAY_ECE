@@ -31,28 +31,68 @@
   <?php
     $categorie=null;
     $type_achat=null;
+    $nom_recherche=null;
     $categorie=$_GET['categorie'];
     $type_achat=$_GET['type_achat'];
+    $nom_recherche=$_GET['recherche'];
     $database="ebay_ece";
     $db_handle = mysqli_connect('localhost','root','');
     $db_found = mysqli_select_db($db_handle,$database);
+
     if($db_found)
-    { 
-        $sql = "SELECT * from item where id_categorie='".$categorie."' OR ".$type_achat."='1';";
-      $result = mysqli_query($db_handle, $sql);
-      while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
-      {
-        echo "<div class='row' onclick=lancement_page('".$categorie."','".$type_achat."','".$data['id_objet']."')>";
-        echo "<div class='col-sm-6 item'>";
-        echo "<p><strong>Nom: </strong>" .$data['nom_objet']. "<br>";
-        echo "<strong>Prix: </strong>" .$data['prix_initial_objet']. " euros<br>";
-        echo "<strong>Description: </strong><br>" .utf8_encode($data['description_objet']). "</p><br>";
-        echo "</div>";
-        echo "<div class='col-sm-6 item_image'>";
-        echo "<img src='https://www.citationbonheur.fr/wp-content/uploads/2018/09/L_influence_du_paysage_sur_le_bonheur.jpg' height='100%'>";
-        echo "</div>";
-        echo "</div>";
-      }
+    {   echo"<div class='col-sm-12 titre_recherche'>";
+        if($categorie!='null')
+        {
+            $sql = "SELECT * from categorie where id_categorie='".$categorie."';";
+            $result = mysqli_query($db_handle, $sql);
+            while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
+            {   echo utf8_encode($data['nom']); }
+        } 
+        else if($type_achat!='null')
+        {
+          if($type_achat=="vente_par_enchere")
+            echo "Vente par enchère";
+          if($type_achat=="vente_immediat")
+            echo "Vente immédiate";
+          if($type_achat=="vente_par_meilleure_offre")
+            echo "Vente par meilleure offre!!";
+        }
+        if($nom_recherche=="null" || $nom_recherche=="")
+            $nom_recherche="%";
+        else
+        {
+          echo "Resultat de la recherche : ".$nom_recherche;
+        }
+        echo"</div>";
+        $sql="";
+        if($nom_recherche=="%")
+          $sql = "SELECT * from item where (id_categorie='".$categorie."' OR ".$type_achat."='1');";
+        else
+          $sql = "SELECT * from item where nom_objet like '%$nom_recherche%';";
+        $result = mysqli_query($db_handle, $sql);
+        if(mysqli_num_rows($result)==0)
+        {
+          echo "<center><div class='col-sm-6'id='aucun_resultat'>Désolé , Il n'y a aucun résultat.</div><center>";
+        }
+        while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
+        {
+          echo "<div class='row' onclick=lancement_page('".$categorie."','".$type_achat."','".$data['id_objet']."')>";
+          echo "<div class='col-sm-6 item'>";
+          echo "<p><strong>Nom: </strong>" .utf8_encode($data['nom_objet']). "<br>";
+          echo "<strong>Prix: </strong>" .$data['prix_initial_objet']. " euros<br>";
+          echo "<strong>Description: </strong><br>" .utf8_encode($data['description_objet']). "</p><br>";
+          echo "</div>";
+          echo "<div class='col-sm-6 item_image'>";
+          $id_objet=$data['id_objet'];
+          $sql_image = "SELECT * FROM item INNER JOIN photo_objet ON item.id_objet=photo_objet.id_objet WHERE item.id_objet='$id_objet';";
+          $result_image = mysqli_query($db_handle, $sql_image);
+          while($data_image = mysqli_fetch_assoc($result_image))
+          {
+           echo "<img class='img'src='upload/".$data_image['id_photo'].".jpg' height='100%'>";break;
+          }
+          echo "</div>";
+          echo "</div>";
+       }
     }
     else
     {
@@ -62,6 +102,7 @@
 ?>
  </div>
  </body>
+ <?php include 'footer.html'; ?>
  </html>
 
 <!--onclick=lancement_page('".$categorie."','".$type_achat."','".$data['ID']."')-->

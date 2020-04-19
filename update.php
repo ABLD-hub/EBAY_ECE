@@ -106,9 +106,10 @@ $database = "ebay_ece";
 
 $db_handle = mysqli_connect('localhost', 'root', '');
 $db_found = mysqli_select_db($db_handle, $database);
-if ($_POST["submit"])
-{
-	if ($db_found) {
+if ($db_found) {
+	if (isset($_POST["submit"]))
+	{
+	
 			$sql ="UPDATE utilisateur SET email='$mail', nom_utilisateur='$nom', prenom_utilisateur='$prenom', pseudo='$pseudo', mot_de_passe='$mdp', type_utilisateur='$statut', adresse_ligne_1='$adresse_ligne_1', adresse_ligne_2='$adresse_ligne_2', adresse_ville='$adresse_ville', adresse_pays='$adresse_pays', no_telephone=$no_telephone, carte_type='$type_carte', carte_numero='$carte_numero', carte_nom='$carte_nom', carte_date_expiration=$carte_date_expiration WHERE id_utilisateur='$id_utilisateur'";
 			$result = mysqli_query($db_handle, $sql);
 							$_SESSION['nom_utilisateur']=$nom;
@@ -134,8 +135,8 @@ if ($_POST["submit"])
 							session_write_close();
 							header('Location: accueil.php');
 							exit();
-		}
 		
+		}
 	}
 	else {  echo "Database not found";}
 	mysqli_close($db_handle);

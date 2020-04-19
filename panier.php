@@ -1,3 +1,5 @@
+<?php session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +30,7 @@
 		      <option>Accessoire VIP</option>	
 		    </select>
 		 </form>
+<?php include 'liste.php';?>
 
 </div>
 </body>

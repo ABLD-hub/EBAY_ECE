@@ -20,11 +20,11 @@ session_start();
    <?php if(isset($_SESSION['email'])) {
     echo "la session vaut : ".$_SESSION['email'];
     echo "l'utilisateur vaut : ".$_SESSION['type_utilisateur'];
-	}else
+  }else
 {
 echo 'pas de variable de session';
 } ?>
-	
+  
   <?php include 'navbar.html';?>
 
   <form class="form-group" action="update.php" method="post">
@@ -51,14 +51,14 @@ echo 'pas de variable de session';
   <div class="form-check">
   <input class="form-check-input" type="radio" name="statut" id="ACHETEUR" value="acheteur">
   <label class="form-check-label">
-    ACHETEUR
+    Acheteur
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="statut" id="VENDEUR" value="vendeur">
   <label class="form-check-label">
     Vendeur
-  </label>	
+  </label>  
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="statut" id="admin" value="admin" disabled>
@@ -94,9 +94,9 @@ echo 'pas de variable de session';
   <div class="form-group">
     <label>Type de Carte</label>
     <select class="form-control" id="Choice">
-		      <option name='Choice'>Visa</option>
-		      <option name ='Choice'>MasterCard</option>
-		    </select>
+          <option name='Choice'>Visa</option>
+          <option name ='Choice'>MasterCard</option>
+        </select>
   </div>
   <div class="form-group">
     <label>Num Carte</label>
@@ -113,20 +113,29 @@ echo 'pas de variable de session';
   </div>
    <div class="form-group">
     <label>Code</label>
-    <input type="carte_code" name="carte_code"class="form-control" id="ZoneCode" placeholder="<?php echo $_SESSION['carte_date_expiration'];?>">
+    <input type="carte_code" name="carte_code"class="form-control" id="ZoneCode" placeholder="<?php echo $_SESSION['carte_code'];?>">
   </div>
    <input type="submit" class="btn btn-primary" name="submit" value="Modifier">
 </form>
 <script type="text/javascript">
-	if("<?php echo $_SESSION['type_utilisateur']?>"=="vendeur")
-	{
-		document.getElementById("VENDEUR").checked= true;
-	}
-	else if("<?php echo $_SESSION['type_utilisateur']?>"=='acheteur')
-	{
-		document.getElementById("ACHETEUR").checked=true;
-	}
+  if("<?php echo $_SESSION['type_utilisateur']?>"=="vendeur")
+  {
+    document.getElementById("VENDEUR").checked= true;
+    document.getElementById("ACHETEUR").disabled= true;
+  }
+  else if("<?php echo $_SESSION['type_utilisateur']?>"=='acheteur')
+  {
+    document.getElementById("ACHETEUR").checked=true;
+    document.getElementById("VENDEUR").disabled=true;
+  }
+  else if("<?php echo $_SESSION['type_utilisateur']?>"=='admin')
+  {
+    document.getElementById("ACHETEUR").disabled=true;
+    document.getElementById("VENDEUR").disabled=true;
+    document.getElementById("Admin").checked=true;
+  }
 </script>
 </body>
 <footer> 
+  <?php include 'footer.html'; ?>
 </footer>

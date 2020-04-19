@@ -28,13 +28,8 @@
 			        while($data = mysqli_fetch_assoc($result))//==> nul s'il n'y a plus de ligne dans le tableau
 			        {
 			          
-			          echo "<input class='button col-sm-4' id='".$data['id_categorie']."' type='submit' name='".$data['id_categorie']."' value='".utf8_encode($data['nom'])."' onclick=Recherche('".$data['id_categorie']."',null)>";
+			          echo "<input class='button col-sm-4' id='".$data['id_categorie']."' type='submit' name='".$data['id_categorie']."' value='".utf8_encode($data['nom'])."' onclick=Recherche('".$data['id_categorie']."',null,null)>";
 			        }
-			        $sql = "SELECT COUNT(*) from categorie";
-			        $result = mysqli_query($db_handle, $sql);
-			        $row = $result->fetch_row();
-			        echo"<script>set_num_categorie_max(".$row[0].")</script>";
-
 			      }
 			      else
 			      {
@@ -46,14 +41,17 @@
 		  </div>
 		  <div id="type_achat" class="col-sm-12 area">
 				<h1 align="center">Type d'achats</h1>
-				<input class="button" id="Encheres" type="submit" name="Encheres" value="Enchères" onclick="Recherche(null,'vente_par_enchere')">
-				<input class="button" id="Achat_immediat"  type="submit" name="Achat_immediat" value="Achetez le maintenant !! " onclick="Recherche(null,'vente_immediat')">
-				<input class="button" id="Meilleure_offre" type="submit" name="Meilleure_offre" value="Meilleure Offre " onclick="Recherche(null,'vente_par_meilleure_offre')">
+				<input class="button" id="Encheres" type="submit" name="Encheres" value="Enchères" onclick="Recherche(null,'vente_par_enchere',null)">
+				<input class="button" id="Achat_immediat"  type="submit" name="Achat_immediat" value="Achetez le maintenant !! " onclick="Recherche(null,'vente_immediat',null)">
+				<input class="button" id="Meilleure_offre" type="submit" name="Meilleure_offre" value="Meilleure Offre " onclick="Recherche(null,'vente_par_meilleure_offre',null)">
 		  </div>
 	  </div>
 	  <div class="row">
-			  <div id="vendre" class="col-sm-12 div_button" style="background-color: beige;  border: black; border-radius: 35px; border:green solid 1px; height: 100px;margin:10px;" align="center" onclick="window.open('Formulaire_Item.php')"><h1>Vendre un Item</h1>
-			  </div>
+
+	  		<div id='vendre' class='col-sm-12 div_button' style='background-color: beige;  border: black; border-radius: 35px; border:green solid 1px; height: 100px;' align='center' onclick="window.open('<?php check_vendeur();?>','_self')"><h1>Vendre un Item</h1>
+			  </div>";
+
+	
 	  </div>
   </div>
 </div>

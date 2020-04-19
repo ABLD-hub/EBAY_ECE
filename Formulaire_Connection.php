@@ -16,20 +16,20 @@ session_start();
 </head>
 <body>
 
-<p style="font-size: 30px" align="center">Formulaire de Connection</p>
+<p style="font-size: 30px" align="center">Formulaire de Connexion</p>
 <form action="Utilisateur.php" method="post">
 	<table align="center">
 
 		<tr>
 			<td>Email ou Pseudo:</td>
-			<td><input type="Email" class="form-control" id="email" name="email"></td>
+			<td><input type="pseudo" class="form-control" id="pseudo" name="pseudo"></td>
 		</tr>
 		<tr>
 			<td>Mot de passe :</td>
 			<td><input type="password" class="form-control" id="password" name="password"></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="submit" value="Connection"></td>
+			<td colspan="2" align="center"><input type="submit" class="btn btn-primary" name="submit" value="Connexion"></td>
 		</tr>
 	</table>
 </center>

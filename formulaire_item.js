@@ -79,3 +79,13 @@ function verification_nb_input_image()
   if(i>=3)
     i=3;
 }
+function param_date() {
+    var now = new Date();
+
+    var mois = ("0" + (now.getMonth() + 1)).slice(-2);  
+    var jour = ("0" + (now.getDate() + 1 )).slice(-2);
+    var today = now.getFullYear() + "-" + mois + "-" + jour;
+
+    document.getElementById('date').setAttribute("min", today); 
+    document.getElementById('date').setAttribute("value", today); 
+  }

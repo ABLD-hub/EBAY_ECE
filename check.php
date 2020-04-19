@@ -10,14 +10,14 @@ function check_vendeur()
 	///Si il y a un utilisateur
 	if(isset($_SESSION['type_utilisateur']))
 	{
-		if($_SESSION['type_utilisateur']=="VENDEUR" || $_SESSION['type_utilisateur']=="Admin")
-	{
-		echo 'Formulaire_Item.php';
-	}
-	else
-	{
-		echo "Formulaire_Demande.php";
-	}
+		if($_SESSION['type_utilisateur']=="vendeur" || $_SESSION['type_utilisateur']=="admin")
+		{
+			echo 'Formulaire_Item.php';
+		}
+		else
+		{
+			echo "Formulaire_Demande.php";
+		}
 	}
 	else
 	{
@@ -29,4 +29,5 @@ function recup_number()
 {	
 	echo "***********".substr($_SESSION['carte_numero'],-5);
 }
+
 ?>
